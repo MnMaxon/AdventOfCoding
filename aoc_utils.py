@@ -81,3 +81,7 @@ def run_tests(part1_results, part2_results):
     if part2_results is not None:
         print("Part 2:", part2_results)
     print("\nDone")
+
+
+def int_list(input_string: str, sep: Optional[str] = None, ignore_blanks=True) -> List[int]:
+    return [int(s) for s in input_string.strip().split(sep) if ignore_blanks or s != ""]
