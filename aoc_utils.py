@@ -13,9 +13,7 @@ class Day:
         input_path = self._active_input if input_path is None else input_path
         return get_lines(input_path, strip)
 
-    def process_raw_input(self, raw_input: List[str] = None):
-        if raw_input is None:
-            raw_input = self.get_raw_input()
+    def process_raw_input(self, raw_input: List[str]):
         return raw_input
 
     def run_tests(self, part1=True, part2=True, part_test=False, real_input=True, sample_input=True, test_input=True):
@@ -51,19 +49,13 @@ class Day:
     def get_day_str(self):
         return self.__class__.__name__.replace("Day", "")
 
-    def run_part_test(self, data=None):
-        if data is None:
-            data = self.process_raw_input()
+    def run_part_test(self, data):
         return data
 
-    def run_part_1(self, data=None):
-        if data is None:
-            data = self.process_raw_input()
+    def run_part_1(self, data):
         return data
 
-    def run_part_2(self, data=None):
-        if data is None:
-            data = self.process_raw_input()
+    def run_part_2(self, data):
         return data
 
 
