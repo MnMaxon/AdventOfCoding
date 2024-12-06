@@ -26,9 +26,9 @@ def setup_folder(year, day, base_folder='.', setup_files=False):
     folder.mkdir(parents=True, exist_ok=True)
     if setup_files:
         copy_map = {
-            'test.txt': folder / 'test.txt',
-            'sample.txt': folder / 'sample.txt',
-            'input.txt': folder / 'input.txt',
+            'day_sample/test.txt': folder / 'test.txt',
+            'day_sample/sample.txt': folder / 'sample.txt',
+            'day_sample/input.txt': folder / 'input.txt',
         }
         for src, dst in copy_map.items():
             if not dst.exists():
@@ -36,7 +36,7 @@ def setup_folder(year, day, base_folder='.', setup_files=False):
 
         day_path = folder / f'{folder_name}.py'
         if not day_path.exists():
-            shutil.copy('day_sample.py', day_path)
+            shutil.copy('day_sample/day_sample.py', day_path)
 
             # Replaces ___DAY with the day number - Ex: Day___DAY -> Day01
             with open(day_path, 'r') as f:
@@ -48,6 +48,6 @@ def setup_folder(year, day, base_folder='.', setup_files=False):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    setup_folders(2023, setup_files=True)
+    setup_folders(2024, setup_files=True)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
