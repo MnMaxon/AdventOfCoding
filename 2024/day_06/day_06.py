@@ -5,7 +5,8 @@ dirs = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
 
 def get_steps(data, facing, guard_i, guard_j):
-    steps = []
+    steps = []  # Don't count the same step twice - for part 1, a little more efficient for part 2
+    all_steps = []
     while 0 <= guard_i < len(data) and 0 <= guard_j < len(data[0]):
         coords = (guard_i, guard_j)
         if data[guard_i][guard_j] == '#':
@@ -15,9 +16,10 @@ def get_steps(data, facing, guard_i, guard_j):
             continue
         if coords not in steps:
             steps.append(coords)
+            all_steps.append((guard_i, guard_j, facing))
         guard_i += dirs[facing][0]
         guard_j += dirs[facing][1]
-    return steps
+    return all_steps
 
 
 def get_starting_coords(data):
@@ -48,8 +50,13 @@ class Day06(utils.Day):
         steps = get_steps(data, facing, guard_i, guard_j)
         steps = steps[1:]
 
-        for step in steps:
-            inf, _ = is_infinite(data, guard_i, guard_j, step[0], step[1], facing=0)
+        for step_i in range(len(steps)):
+            step = steps[step_i]
+            if step_i == 0:
+                last_step = (guard_i, guard_j, facing)
+            else:
+                last_step = steps[step_i - 1]
+            inf, _ = is_infinite(data, last_step[0], last_step[1], step[0], step[1], facing=last_step[2])
             if inf:
                 total += 1
         return total
