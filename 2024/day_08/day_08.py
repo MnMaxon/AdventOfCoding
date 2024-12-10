@@ -27,17 +27,6 @@ def append_to_all_antinodes(all_antinodes, antinodes, data):
 
 
 class Day08(utils.Day):
-    # Used to test code, run by using Day.run_tests(part_test=True)
-    def run_part_test(self, data=None):
-        data = super().run_part_test(data)
-        return data
-
-    # Converts list of strings into more meaningful data if necessary
-    # Only really useful if you think there will be common code used twice
-    def process_raw_input(self, raw_input):
-        # TODO Process raw data, given strings separated by new lines
-        return raw_input
-
     def run_part_1(self, data=None):
         all_antinodes = []
         for freq, antennas in get_antennas_by_freq(data).items():
