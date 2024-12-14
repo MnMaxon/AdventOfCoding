@@ -1,3 +1,4 @@
+import dataclasses
 import os
 from typing import Optional, List
 
@@ -77,3 +78,44 @@ def run_tests(part1_results, part2_results):
 
 def int_list(input_string: str, sep: Optional[str] = None, ignore_blanks=True) -> List[int]:
     return [int(s) for s in input_string.strip().split(sep) if ignore_blanks or s != ""]
+
+
+@dataclasses.dataclass
+class Coordinates:
+    x: int
+    y: int
+
+    def __eq__(self, other):
+        if isinstance(other, int):
+            other = Coordinates(other, other)
+        return self.x == other.x and self.y == other.y
+
+    def __add__(self, other):
+        if isinstance(other, int):
+            other = Coordinates(other, other)
+        return Coordinates(self.x + other.x, self.y + other.y)
+
+    def __sub__(self, other):
+        return Coordinates(self.x - other.x, self.y - other.y)
+
+    def __mul__(self, other):
+        return Coordinates(self.x * other, self.y * other)
+
+    def __truediv__(self, other):
+        return Coordinates(self.x / other, self.y / other)
+
+    def __floordiv__(self, other):
+        if isinstance(other, int):
+            other = Coordinates(other, other)
+        return Coordinates(self.x // other.x, self.y // other.y)
+
+    def __mod__(self, other):
+        if isinstance(other, int):
+            other = Coordinates(other, other)
+        return Coordinates(self.x % other.x, self.y % other.y)
+
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+
+    def __repr__(self):
+        return self.__str__()
