@@ -81,41 +81,47 @@ def int_list(input_string: str, sep: Optional[str] = None, ignore_blanks=True) -
 
 
 @dataclasses.dataclass
-class Coordinates:
+class Coordinate:
     x: int
     y: int
 
+    def from_string(s: str, sep=","):
+        return Coordinate(*int_list(s, sep=sep))
+
     def __eq__(self, other):
         if isinstance(other, int):
-            other = Coordinates(other, other)
+            other = Coordinate(other, other)
         return self.x == other.x and self.y == other.y
 
     def __add__(self, other):
         if isinstance(other, int):
-            other = Coordinates(other, other)
-        return Coordinates(self.x + other.x, self.y + other.y)
+            other = Coordinate(other, other)
+        return Coordinate(self.x + other.x, self.y + other.y)
 
     def __sub__(self, other):
-        return Coordinates(self.x - other.x, self.y - other.y)
+        return Coordinate(self.x - other.x, self.y - other.y)
 
     def __mul__(self, other):
-        return Coordinates(self.x * other, self.y * other)
+        return Coordinate(self.x * other, self.y * other)
 
     def __truediv__(self, other):
-        return Coordinates(self.x / other, self.y / other)
+        return Coordinate(self.x / other, self.y / other)
 
     def __floordiv__(self, other):
         if isinstance(other, int):
-            other = Coordinates(other, other)
-        return Coordinates(self.x // other.x, self.y // other.y)
+            other = Coordinate(other, other)
+        return Coordinate(self.x // other.x, self.y // other.y)
 
     def __mod__(self, other):
         if isinstance(other, int):
-            other = Coordinates(other, other)
-        return Coordinates(self.x % other.x, self.y % other.y)
+            other = Coordinate(other, other)
+        return Coordinate(self.x % other.x, self.y % other.y)
 
     def __str__(self):
         return f"({self.x}, {self.y})"
 
     def __repr__(self):
         return self.__str__()
+
+    def __hash__(self):
+        return hash((self.x, self.y))
