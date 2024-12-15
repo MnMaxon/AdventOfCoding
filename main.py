@@ -41,7 +41,8 @@ def setup_folder(year, day, base_folder='.', setup_files=False):
             # Replaces ___DAY with the day number - Ex: Day___DAY -> Day01
             with open(day_path, 'r') as f:
                 py_data = f.read()
-            py_data = py_data.replace('___DAY', str(day))
+            py_data = py_data.replace('DayHere', str(day))
+            py_data = py_data.replace('_TODO', 'TODO')
             with open(day_path, 'w') as f:
                 f.write(py_data)
 
