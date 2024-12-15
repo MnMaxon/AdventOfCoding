@@ -19,6 +19,7 @@ def score(x, y):
 class Grid:
     lines: [str]
     player: aoc_utils.Coordinate
+    moves: str
     is_double = False
 
     def get_char(self, loc):
@@ -143,28 +144,16 @@ class Day15(utils.Day):
                 player = aoc_utils.Coordinate(line.index('@'), i)
                 grid[i] = line.replace('@', '.')
                 break
-        return grid, moves, player
+        return Grid(lines=grid, player=player, moves=moves)
 
-    def run_part_1(self, data=None):
-        grid, moves, player = data
-        grid = Grid(lines=grid, player=player)
-        for move in moves:
+    def run_part_1(self, grid: Grid):
+        for move in grid.moves:
             grid.move(move)
         return grid.calc_score()
 
-    def run_part_2(self, data=None):
-        grid, moves, player = data
-        grid = Grid(lines=grid, player=player)
+    def run_part_2(self, grid: Grid):
         grid.double()
-        # print("Initial state:")
-        # grid.print()
-        # print()
-        for move in moves:
-            # print("Move:", move)
-            grid.move(move)
-            # grid.print()
-            # print()
-        return grid.calc_score()
+        return self.run_part_1(grid)
 
 
 if __name__ == '__main__':
